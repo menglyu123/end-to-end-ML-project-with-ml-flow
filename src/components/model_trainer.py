@@ -3,7 +3,6 @@ from dataclasses import dataclass
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 from xgboost import XGBRegressor
-
 from sklearn.ensemble import RandomForestRegressor
 
 from src.exception import CustomException
