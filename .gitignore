@@ -136,7 +136,7 @@ venv.bak/
 .ropeproject
 
 # mkdocs documentation
-/artifacts
+/notebook
 /site
 
 # mypy
