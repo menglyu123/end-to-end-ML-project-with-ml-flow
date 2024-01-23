@@ -25,10 +25,10 @@ def predict_datapoint():
             reading_score= float(request.form.get('reading_score')),
             writing_score = float(request.form.get('writing_score'))
         )
-        pred_df = data.get_data_as_data_frame()
-        predict_pipeline = PredictPipeline()
-        results = predict_pipeline.predict(pred_df)
-        return results[0]#render_template('home.html',results = results[0])
+        #pred_df = data.get_data_as_data_frame()
+        #predict_pipeline = PredictPipeline()
+       # results = predict_pipeline.predict(pred_df)
+        return 0#render_template('home.html',results = results[0])
     
 if __name__=="__main__":
     app.run(host='127.0.0.1',port=8000)
