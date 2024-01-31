@@ -122,5 +122,5 @@ def prepare_data(
             X_arr[i] = scaler.fit_transform(X_arr[i])
         return df.iloc[winlen-1:], X_arr
  
-with open('preprocessor.pkl', 'wb') as fp:
-    dill.dump(prepare_data, fp)
+# with open('preprocessor.pkl', 'wb') as fp:
+#     dill.dump(prepare_data, fp)
