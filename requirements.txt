@@ -3,6 +3,8 @@ numpy
 matplotlib
 scikit-learn
 dill
-xgboost
+yfinance
+tensorflow
+pandas_ta
 flask
 # -e .

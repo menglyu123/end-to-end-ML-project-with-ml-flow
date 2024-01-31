@@ -1,111 +1,61 @@
 <html>
 <body>
     <div class="login">
-       <h1>Student Exam Performance Indicator</h1>
    
        <form action="{{ url_for('predict_datapoint')}}" method="post">
         <h1>
-            <legend>Student Exam Performance Prediction</legend>
+            <legend>Future Maket Prediction</legend>
         </h1>
         <div class="mb-3">
-            <label class="form-label">Gender</label>
-            <select class="form-control" name="gender" placeholder="Enter you Gender" required>
-                <option class="placeholder" selected disabled value="">Select your Gender</option>
-                <option value="male">
-                    Male
+            <label class="form-label">HK_stock_symbol</label>
+            <select class="form-control" name="HK_stock_symbol" placeholder="Enter you HK_stock_symbol" required>
+                <option class="placeholder" selected disabled value="">Select your HK_stock_symbol</option>
+                <option value="0700">
+                    0700
                 </option>
-                <option value="female">
-                    Female
-                </option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Race or Ethnicity</label>
-            <select class="form-control" name="ethnicity" placeholder="Enter you ethnicity" required>
-                <option class="placeholder" selected disabled value="">Select Ethnicity</option>
-                <option value="group A">
-                    Group A
-                </option>
-                <option value="group B">
-                    Group B
-                </option>
-                <option value="group C">
-                    Group C
-                </option>
-                <option value="group D">
-                    Group D
-                </option>
-                <option value="group E">
-                    Group E
+                <option value="2688">
+                    2688
                 </option>
             </select>
         </div>
         <div class="mb-3">
-            <label class="form-label">Parental Level of Education</label>
-            <select class="form-control" name="parental_level_of_education"
-                placeholder="Enter you Parent Education" required>
-                <option class="placeholder" selected disabled value="">Select Parent Education</option>
-                <option value="associate's degree">
-                    associate's degree
+            <label class="form-label">US_stock_symbol</label>
+            <select class="form-control" name="US_stock_symbol" placeholder="Enter you US_stock_symbol" required>
+                <option class="placeholder" selected disabled value="">Select US_stock_symbol</option>
+                <option value="AAPL">
+                    AAPL
                 </option>
-                <option value="bachelor's degree">
-                    bachelor's degree
+                <option value="MSFT">
+                    MSFT
                 </option>
-                <option value="high school">
-                    high school
-                </option>
-                <option value="master's degree">
-                    master's degree
-                </option>
-                <option value="some college">
-                    some college
-                </option>
-                <option value="some high school">
-                    some high school
+                <option value="TSLA">
+                    TSLA
                 </option>
             </select>
         </div>
         <div class="mb-3">
-            <label class="form-label">Lunch Type</label>
-            <select class="form-control" name="lunch" placeholder="Enter you Lunch" required>
-                <option class="placeholder" selected disabled value="">Select Lunch Type</option>
-                <option value="free/reduced">
-                    free/reduced
+            <label class="form-label">Crypto_symbol</label>
+            <select class="form-control" name="Crypto_symbol"
+                placeholder="Enter you Crypto_symbol" required>
+                <option class="placeholder" selected disabled value="">Select Crypto_symbol</option>
+                <option value="BTC">
+                    BTC
                 </option>
-                <option value="standard">
-                    standard
+                <option value="ETH">
+                    ETH
                 </option>
-            </select>
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Test preparation Course</label>
-            <select class="form-control" name="test_preparation_course" placeholder="Enter you Course"
-                required>
-                <option class="placeholder" selected disabled value="">Select Test_course</option>
-                <option value="none">
-                    None
-                </option>
-                <option value="completed">
-                    Completed
+                <option value="SOL">
+                    SOL
                 </option>
             </select>
         </div>
         <div class="mb-3">
-            <label class="form-label">Writing Score out of 100</label>
-            <input class="form-control" type="number" name="reading_score"
-                placeholder="Enter your Reading score" min='0' max='100' />
-        </div>
-        <div class="mb-3">
-            <label class="form-label">Reading Score out of 100</label>
-            <input class="form-control" type="number" name="writing_score"
-                placeholder="Enter your Reading Score" min='0' max='100' />
-        </div>
-        <div class="mb-3">
-            <input class="btn btn-primary" type="submit" value="Predict your Maths Score" required />
+            <input class="btn btn-primary" type="submit" value="Predict" required />
         </div>
     </form>
     <h2>
-       THE  prediction is {{results}}
+       THE historical prediction plots: 
     </h2>
+    <img src="data:image/png;base64, {{ plot_url }}">
    <body>
 </html>

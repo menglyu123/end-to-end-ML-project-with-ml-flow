@@ -3,6 +3,7 @@ from src.exception import CustomException
 import dill
 from sklearn.metrics import r2_score
 from sklearn.model_selection import GridSearchCV
+from dataclasses import dataclass
 
 
 def save_object(obj, file_path):

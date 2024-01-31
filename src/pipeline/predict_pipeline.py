@@ -1,7 +1,12 @@
 import sys,os
-import pandas as pd
 from src.exception import CustomException
-from src.utils import load_object
+from src.components.prepare_data import prepare_data
+import yfinance as yf
+import tensorflow as tf
+import warnings
+warnings.filterwarnings('ignore')
+
+
 
 
 class PredictPipeline:
@@ -10,46 +15,46 @@ class PredictPipeline:
 
     def predict(self, features_df):
         try:
-            model_path = os.path.join('artifacts','model.pkl')
-            preprocessor_path = os.path.join('artifacts','preprocessor.pkl')
-            model = load_object(file_path = model_path)
-            preprocessor = load_object(file_path = preprocessor_path)
-            data_scaled = preprocessor.transform(features_df)
-            preds = model.predict(data_scaled)
-            return preds
+            model_path = os.path.join('artifacts','model.h5')
+            model = tf.keras.models.load_model(model_path)
+            bdf, X_test = prepare_data(features_df)
+            pred = model.predict(X_test)
+            bdf['predict'] = pred
+            
+            return bdf
         except Exception as e:
             raise CustomException(e,sys)
 
 
 class CustomData:
     def __init__(self, 
-        gender:str,
-        race_ethnicity:str,
-        parental_level_of_education,
-        lunch:str,
-        test_preparation_course:str,
-        reading_score: int,
-        writing_score:int):
+        HK_stock_symbol:str,
+        US_stock_symbol:str,
+        Crypto_symbol:str
+        ):
         
-        self.gender = gender
-        self.race_ethnicity = race_ethnicity
-        self.parental_level_of_eduction = parental_level_of_education
-        self.lunch = lunch
-        self.test_preparation_course = test_preparation_course
-        self.reading_score = reading_score
-        self.writing_score = writing_score
+        self.HK_stock_symbol = HK_stock_symbol
+        self.US_stock_symbol = US_stock_symbol
+        self.Crypto_symbol = Crypto_symbol
+        
     
     def get_data_as_data_frame(self):
         try:
-            custom_data_input_dict = {
-                "gender":[self.gender],
-                'race_ethnicity':[self.race_ethnicity],
-                'parental_level_of_education':[self.parental_level_of_eduction],
-                'lunch': [self.lunch],
-                'test_preparation_course':[self.test_preparation_course],
-                'reading_score':[self.reading_score],
-                'writing_score':[self.writing_score]
-            }
-            return pd.DataFrame(custom_data_input_dict)
+            df = yf.download(f'{self.HK_stock_symbol}.HK',start='2022-10-1')
+            df.reset_index(inplace=True)
+            df.columns = df.columns.str.lower()
+            HK_stock_df = df[['date','open','high','low','close','volume']]
+
+            df = yf.download(f'{self.US_stock_symbol}',start='2022-10-1')
+            df.reset_index(inplace=True)
+            df.columns = df.columns.str.lower()
+            US_stock_df = df[['date','open','high','low','close','volume']]
+
+            df = yf.download(f'{self.Crypto_symbol}-USD',start='2022-10-1')
+            df.reset_index(inplace=True)
+            df.columns = df.columns.str.lower()
+            Crypto_df = df[['date','open','high','low','close','volume']]
+        
+            return {'HK_stock_df':HK_stock_df, 'US_stock_df':US_stock_df, 'Crypto_df':Crypto_df}
         except Exception as e:
             raise CustomException(e, sys)

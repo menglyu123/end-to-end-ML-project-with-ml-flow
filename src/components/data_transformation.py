@@ -14,6 +14,8 @@ from src.utils import save_object
 
 @dataclass
 class DataTransformationConfig:
+    winlen = 120
+    future = 1
     preprocessor_ob_file_path: str = os.path.join('artifacts','preprocessor.pkl')
 
 class DataTransformation:
