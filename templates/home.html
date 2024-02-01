@@ -1,15 +1,14 @@
 <html>
 <body>
     <div class="login">
-   
        <form action="{{ url_for('predict_datapoint')}}" method="post">
         <h1>
-            <legend>Future Maket Prediction</legend>
+            <legend>Market Prediction</legend>
         </h1>
         <div class="mb-3">
             <label class="form-label">HK_stock_symbol</label>
-            <select class="form-control" name="HK_stock_symbol" placeholder="Enter you HK_stock_symbol" required>
-                <option class="placeholder" selected disabled value="">Select your HK_stock_symbol</option>
+            <select class="form-control" name="HK_stock_symbol" placeholder="Enter HK_stock_symbol" required>
+                <option class="placeholder" selected disabled value="">Select HK stock symbol</option>
                 <option value="0700">
                     0700
                 </option>
@@ -20,8 +19,8 @@
         </div>
         <div class="mb-3">
             <label class="form-label">US_stock_symbol</label>
-            <select class="form-control" name="US_stock_symbol" placeholder="Enter you US_stock_symbol" required>
-                <option class="placeholder" selected disabled value="">Select US_stock_symbol</option>
+            <select class="form-control" name="US_stock_symbol" placeholder="Enter US_stock_symbol" required>
+                <option class="placeholder" selected disabled value="">Select US stock symbol</option>
                 <option value="AAPL">
                     AAPL
                 </option>
@@ -35,9 +34,8 @@
         </div>
         <div class="mb-3">
             <label class="form-label">Crypto_symbol</label>
-            <select class="form-control" name="Crypto_symbol"
-                placeholder="Enter you Crypto_symbol" required>
-                <option class="placeholder" selected disabled value="">Select Crypto_symbol</option>
+            <select class="form-control" name="Crypto_symbol" placeholder="Enter Crypto_symbol" required>
+                <option class="placeholder" selected disabled value="">Select Crypto symbol</option>
                 <option value="BTC">
                     BTC
                 </option>
@@ -49,12 +47,30 @@
                 </option>
             </select>
         </div>
+            <div class="mb-3">
+            <label class="form-label">Or Input a HK/US-stock/Crypto symbol:</label>
+            <select class="form-control" name="Symbol_type"
+                placeholder="Select your symbol type" required>
+                <option class="placeholder" selected disabled value="">Select Symbol Type</option>
+                <option value="HK_stock">
+                    HK_stock
+                </option>
+                <option value="US_stock">
+                    US_stock
+                </option>
+                <option value="Crypto">
+                    Crypto
+                </option>
+            </select>
+            <input class="form-control" type="str" name="Enter_symbol"
+                placeholder="Enter your symbol"/>
+        </div>
         <div class="mb-3">
             <input class="btn btn-primary" type="submit" value="Predict" required />
         </div>
     </form>
     <h2>
-       THE historical prediction plots: 
+       THE real time prediction plots:
     </h2>
     <img src="data:image/png;base64, {{ plot_url }}">
    <body>

@@ -24,17 +24,22 @@ class PredictPipeline:
 
 
 class CustomData:
-    def __init__(self, 
+    def __init__(self,
         HK_stock_symbol:str,
         US_stock_symbol:str,
-        Crypto_symbol:str
+        Crypto_symbol:str,
+        Symbol_type:str,
+        Enter_symbol:str
         ):
-        
+
         self.HK_stock_symbol = HK_stock_symbol
         self.US_stock_symbol = US_stock_symbol
         self.Crypto_symbol = Crypto_symbol
-        
-    
+        self.Symbol_type = Symbol_type
+        self.Enter_symbol = Enter_symbol
+
+
+
     def get_data_as_data_frame(self):
         try:
             df = yf.download(f'{self.HK_stock_symbol}.HK',start='2022-10-1')
@@ -51,7 +56,17 @@ class CustomData:
             df.reset_index(inplace=True)
             df.columns = df.columns.str.lower()
             Crypto_df = df[['date','open','high','low','close','volume']]
-        
-            return {'HK_stock_df':HK_stock_df, 'US_stock_df':US_stock_df, 'Crypto_df':Crypto_df}
+
+            if self.Symbol_type == 'HK_stock':
+                df = yf.download(f'{self.Enter_symbol}.HK',start='2022-10-1')
+            elif self.Symbol_type == 'US_stock':
+                df = yf.download(f'{self.Enter_symbol}',start='2022-10-1')
+            elif self.Symbol_type == 'Crypto':
+                df = yf.download(f'{self.Enter_symbol}-USD',start='2022-10-1')
+            df.reset_index(inplace=True)
+            df.columns = df.columns.str.lower()
+            Enter_df = df[['date','open','high','low','close','volume']]
+
+            return {'HK_stock_df':HK_stock_df, 'US_stock_df':US_stock_df, 'Crypto_df':Crypto_df, 'Enter_df':Enter_df}
         except Exception as e:
             raise CustomException(e, sys)
